@@ -3,6 +3,8 @@
 
 name: Build and deploy ASP.Net Core app to Azure Web App - web-inlamningsuppgift3-we
 
+name: Deploy static files to Azure Web App
+
 on:
   push:
     branches:
@@ -10,46 +12,16 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-    runs-on: windows-latest
+  deploy:
+    runs-on: ubuntu-latest
 
     steps:
+      # Step 1: Check out the repository
       - uses: actions/checkout@v4
 
-      - name: Set up .NET Core
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: '8.x'
-          include-prerelease: true
-
-      - name: Build with dotnet
-        run: dotnet build --configuration Release
-
-      - name: dotnet publish
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
-
-      - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v3
-        with:
-          name: .net-app
-          path: ${{env.DOTNET_ROOT}}/myapp
-
-  deploy:
-    runs-on: windows-latest
-    needs: build
-    environment:
-      name: 'Production'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-
-    steps:
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v3
-        with:
-          name: .net-app
-
+      # Step 2: Deploy static files to Azure Web App
       - name: Deploy to Azure Web App
-        id: deploy-to-webapp
-        uses: azure/webapps-deploy@v2
+        uses: azure/webapps-deploy@v3
         with:
           app-name: 'web-inlamningsuppgift3-we'
           slot-name: 'Production'
