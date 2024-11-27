@@ -20,6 +20,9 @@ jobs:
           dotnet-version: '8.x'
           include-prerelease: true
 
+      - name: Debug directory
+        run: dir
+
       - name: Restore dependencies
         run: dotnet restore
         working-directory: C:\Users\CarolinNygren\source\repos\Privat\Inlamningsuppgift3\Inlamning3
