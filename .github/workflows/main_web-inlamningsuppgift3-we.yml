@@ -32,7 +32,7 @@ jobs:
         run: dotnet build D:\a\Inlamningsuppgift3\Inlamningsuppgift3\Inlamning3 --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o D:\a\Inlamningsuppgift3\Inlamningsuppgift3\Inlamning3
+        run: dotnet publish D:\a\Inlamningsuppgift3\Inlamningsuppgift3\Inlamning3 -c Release -o D:\a\Inlamningsuppgift3\Inlamningsuppgift3\Inlamning3
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
