@@ -28,7 +28,8 @@ jobs:
         working-directory: D:\a\Inlamningsuppgift3\Inlamningsuppgift3\Inlamning3
 
       - name: Build with dotnet
-        run: dotnet build --configuration Release
+  
+        run: dotnet build D:\a\Inlamningsuppgift3\Inlamningsuppgift3\Inlamning3.csproj --configuration Release
 
       - name: dotnet publish
         run: dotnet publish -c Release -o D:\a\Inlamningsuppgift3\Inlamningsuppgift3\Inlamning3\publish
