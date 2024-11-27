@@ -25,19 +25,19 @@ jobs:
 
       - name: Restore dependencies
         run: dotnet restore
-        working-directory: C:\Users\CarolinNygren\source\repos\Privat\Inlamningsuppgift3\Inlamning3
+        working-directory: D:\a\Inlamningsuppgift3\Inlamningsuppgift3\Inlamning3
 
       - name: Build with dotnet
         run: dotnet build --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o C:\Users\CarolinNygren\source\repos\Privat\Inlamningsuppgift3\Inlamning3\publish
+        run: dotnet publish -c Release -o D:\a\Inlamningsuppgift3\Inlamningsuppgift3\Inlamning3\publish
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
           name: .net-app
-          path: C:\Users\CarolinNygren\source\repos\Privat\Inlamningsuppgift3\Inlamning3\publish
+          path: D:\a\Inlamningsuppgift3\Inlamningsuppgift3\Inlamning3\publish
 
   deploy:
     runs-on: windows-latest
