@@ -43,10 +43,10 @@ jobs:
           name: .net-app      
 
       - name: Deploy to Azure Web App
-         id: deploy-to-webapp
-         uses: azure/webapps-deploy@v3
-         with:
-           app-name: 'web-inlamningsuppgift3-we'
-           slot-name: 'Production'
-           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_A4729704913C44BD91D85D2CA50CEDEA }}
-           package: .
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: 'web-inlamningsuppgift3-we'
+          slot-name: 'Production'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_A4729704913C44BD91D85D2CA50CEDEA }}
+          package: .
