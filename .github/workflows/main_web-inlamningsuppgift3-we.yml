@@ -32,13 +32,13 @@ jobs:
         run: dotnet build D:\a\Inlamningsuppgift3\Inlamningsuppgift3\Inlamning3 --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o D:\a\Inlamningsuppgift3\Inlamningsuppgift3\Inlamning3\publish
+        run: dotnet publish -c Release -o D:\a\Inlamningsuppgift3\Inlamningsuppgift3\Inlamning3\
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
           name: .net-app
-          path: D:\a\Inlamningsuppgift3\Inlamningsuppgift3\Inlamning3\publish
+          path: D:\a\Inlamningsuppgift3\Inlamningsuppgift3\Inlamning3\
 
   deploy:
     runs-on: windows-latest
@@ -60,4 +60,4 @@ jobs:
           app-name: 'web-inlamningsuppgift3-we'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_A4729704913C44BD91D85D2CA50CEDEA }}
-          package: .\publish
+          package: .
