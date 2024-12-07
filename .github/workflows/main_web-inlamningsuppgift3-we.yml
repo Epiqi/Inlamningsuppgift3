@@ -65,7 +65,8 @@ jobs:
     steps:
       - name: Test Home Page
         run: |
-          $response = Invoke-RestMethod -Uri "https://func-smoketest.azurewebsites.net/api/HomeTest"
+          $functionKey = "${{ secrets.HOMEKEY }}"
+          $response = Invoke-RestMethod -Uri "https://func-smoketest.azurewebsites.net/api/HomeTest?code=$functionKey"
           if ($response -like "*failed*") {
             Write-Error "Home Page test failed: $response"
           } else {
@@ -75,7 +76,8 @@ jobs:
 
       - name: Test Weather Page
         run: |
-          $response = Invoke-RestMethod -Uri "https://func-smoketest.azurewebsites.net/api/WeatherTest"
+          $functionKey = "${{ secrets.WEATHERKEY }}"
+          $response = Invoke-RestMethod -Uri "https://func-smoketest.azurewebsites.net/api/WeatherTest?code=$functionKey"
           if ($response -like "*failed*") {
             Write-Error "Weather Page test failed: $response"
           } else {
