@@ -7,7 +7,6 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:
 
 jobs:
   build:
@@ -19,9 +18,6 @@ jobs:
         with:
           dotnet-version: '8.x'
           include-prerelease: true
-
-      - name: Debug directory
-        run: dir
 
       - name: Restore dependencies
         run: dotnet restore
@@ -61,3 +57,28 @@ jobs:
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_A4729704913C44BD91D85D2CA50CEDEA }}
           package: .
+
+  smoketest:
+    runs-on: windows-latest
+    needs: deploy
+
+    steps:
+      - name: Test Home Page
+        run: |
+          $response = Invoke-RestMethod -Uri "https://func-smoketest.azurewebsites.net/api/HomeTest"
+          if ($response -like "*failed*") {
+            Write-Error "Home Page test failed: $response"
+          } else {
+            Write-Host "Home Page test passed: $response"
+          }
+        shell: pwsh
+
+      - name: Test Weather Page
+        run: |
+          $response = Invoke-RestMethod -Uri "https://func-smoketest.azurewebsites.net/api/WeatherTest"
+          if ($response -like "*failed*") {
+            Write-Error "Weather Page test failed: $response"
+          } else {
+            Write-Host "Weather Page test passed: $response"
+          }
+        shell: pwsh
