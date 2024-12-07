@@ -66,21 +66,35 @@ jobs:
       - name: Test Home Page
         run: |
           $functionKey = "${{ secrets.HOMEKEY }}"
-          $response = Invoke-RestMethod -Uri "https://func-smoketest.azurewebsites.net/api/HomeTest?code=$functionKey"
-          if ($response.StatusCode -eq 200) {
-            Write-Host "Home Page test passed: $response"
+          $url = "https://func-smoketest.azurewebsites.net/api/HomeTest?code=$functionKey"
+          try {
+              $response = Invoke-RestMethod -Uri $url -Method Get -ErrorAction Stop
+              Write-Host "Home Page test passed: $response"
+          } catch {
+              $errorResponse = $_.Exception.Response
+              if ($errorResponse -ne $null) {
+                  $statusCode = $errorResponse.StatusCode
+                  Write-Error "Home Page test failed with StatusCode: $statusCode"
           } else {
-            Write-Error "Home Page test failed: $response"
+            Write-Error "Home Page test failed: $($_.Exception.Message)"
+          }
           }
         shell: pwsh
 
       - name: Test Weather Page
         run: |
           $functionKey = "${{ secrets.WEATHERKEY }}"
-          $response = Invoke-RestMethod -Uri "https://func-smoketest.azurewebsites.net/api/WeatherTest?code=$functionKey"
-          if ($response.StatusCode -eq 200) {
-            Write-Host "Home Page test passed: $response"
+          $url = "https://func-smoketest.azurewebsites.net/api/HomeTest?code=$functionKey"
+          try {
+              $response = Invoke-RestMethod -Uri $url -Method Get -ErrorAction Stop
+              Write-Host "Home Page test passed: $response"
+          } catch {
+              $errorResponse = $_.Exception.Response
+              if ($errorResponse -ne $null) {
+                  $statusCode = $errorResponse.StatusCode
+                  Write-Error "Home Page test failed with StatusCode: $statusCode"
           } else {
-            Write-Error "Home Page test failed: $response"
+            Write-Error "Home Page test failed: $($_.Exception.Message)"
+          }
           }
         shell: pwsh
